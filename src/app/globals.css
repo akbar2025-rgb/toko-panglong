@@ -1,0 +1,287 @@
+@import "tailwindcss";
+
+:root {
+  --paper: #f3eee3;
+  --surface: #fbf8f1;
+  --surface-soft: #f7f2e9;
+  --ink: #22231d;
+  --ink-soft: #34362c;
+  --muted: #5f5b50;
+  --line: #d9cfbc;
+  --line-strong: #9c8d75;
+  --clay: #a34a27;
+  --clay-dark: #7f351a;
+  --clay-soft: #f2ded3;
+  --moss: #2f6b46;
+  --moss-soft: #e2ede5;
+  --amber: #8a5a12;
+  --amber-soft: #f4e8cf;
+  --danger: #a3372b;
+  --danger-dark: #7f291f;
+  --danger-soft: #f7e0dc;
+  --sidebar: #24241e;
+  --sidebar-soft: #303029;
+  --sidebar-line: #3e3e34;
+  --sidebar-muted: #c8c0b1;
+  --sidebar-focus: #f0b79b;
+}
+
+@theme inline {
+  --color-paper: var(--paper);
+  --color-surface: var(--surface);
+  --color-surface-soft: var(--surface-soft);
+  --color-ink: var(--ink);
+  --color-ink-soft: var(--ink-soft);
+  --color-muted: var(--muted);
+  --color-line: var(--line);
+  --color-line-strong: var(--line-strong);
+  --color-clay: var(--clay);
+  --color-clay-dark: var(--clay-dark);
+  --color-clay-soft: var(--clay-soft);
+  --color-moss: var(--moss);
+  --color-moss-soft: var(--moss-soft);
+  --color-amber: var(--amber);
+  --color-amber-soft: var(--amber-soft);
+  --color-danger: var(--danger);
+  --color-danger-dark: var(--danger-dark);
+  --color-danger-soft: var(--danger-soft);
+  --color-sidebar: var(--sidebar);
+  --color-sidebar-soft: var(--sidebar-soft);
+  --color-sidebar-line: var(--sidebar-line);
+  --color-sidebar-muted: var(--sidebar-muted);
+  --font-sans: var(--font-manrope), ui-sans-serif, system-ui, sans-serif;
+  --font-heading: var(--font-bricolage), var(--font-manrope), sans-serif;
+  --font-mono: var(--font-plex-mono), ui-monospace, monospace;
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    background-color: var(--paper);
+    color: var(--ink);
+    text-rendering: optimizeLegibility;
+  }
+
+  ::selection {
+    background-color: var(--clay);
+    color: var(--surface);
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--clay);
+    outline-offset: 2px;
+  }
+
+  .on-dark :focus-visible {
+    outline-color: var(--sidebar-focus);
+  }
+
+  dialog {
+    padding: 0;
+    border: 0;
+    background: transparent;
+    color: var(--ink);
+  }
+
+  dialog::backdrop {
+    background-color: rgb(20 21 17 / 0.55);
+  }
+
+  dialog[open] {
+    animation: dialog-in 160ms ease-out;
+  }
+
+  dialog[open]::backdrop {
+    animation: backdrop-in 160ms ease-out;
+  }
+
+  input[type="date"] {
+    min-width: 0;
+  }
+}
+
+@layer components {
+  .panel {
+    @apply rounded-2xl border border-line bg-surface;
+  }
+
+  .panel-head {
+    @apply flex flex-wrap items-start justify-between gap-3 border-b border-line px-5 py-4;
+  }
+
+  .panel-title {
+    @apply font-heading text-lg font-semibold leading-tight tracking-[-0.01em];
+  }
+
+  .eyebrow {
+    @apply font-mono text-[0.7rem] font-medium text-muted;
+  }
+
+  .btn {
+    @apply inline-flex min-h-11 items-center justify-center gap-2 rounded-lg px-4 text-sm font-semibold transition-colors duration-150 disabled:cursor-not-allowed disabled:opacity-50;
+  }
+
+  .btn-primary {
+    @apply bg-clay text-surface hover:bg-clay-dark;
+  }
+
+  .btn-dark {
+    @apply bg-ink text-surface hover:bg-ink-soft;
+  }
+
+  .btn-secondary {
+    @apply border border-line-strong bg-surface text-ink hover:bg-surface-soft;
+  }
+
+  .btn-quiet {
+    @apply text-ink hover:bg-surface-soft;
+  }
+
+  .btn-danger {
+    @apply bg-danger text-surface hover:bg-danger-dark;
+  }
+
+  .field {
+    @apply min-h-11 w-full rounded-lg border border-line-strong bg-surface px-3 py-2 text-sm text-ink transition-colors placeholder:text-muted focus-visible:border-clay;
+  }
+
+  .field:disabled {
+    @apply cursor-not-allowed bg-surface-soft text-muted;
+  }
+
+  .field-label {
+    @apply mb-1.5 block text-[0.8rem] font-semibold text-ink;
+  }
+
+  .field-help {
+    @apply mt-1.5 text-xs leading-relaxed text-muted;
+  }
+
+  .field-error {
+    @apply mt-1.5 text-xs font-semibold leading-relaxed text-danger;
+  }
+
+  .link {
+    @apply font-semibold text-clay underline-offset-4 transition-colors hover:text-clay-dark hover:underline;
+  }
+
+  .mono {
+    @apply font-mono text-[0.74rem] font-medium;
+  }
+
+  .table-base {
+    @apply w-full border-collapse text-left text-sm;
+  }
+
+  .table-base th {
+    @apply whitespace-nowrap border-b border-line px-4 py-3 text-[0.72rem] font-semibold text-muted;
+  }
+
+  .table-base td {
+    @apply border-b border-line px-4 py-3.5 align-middle;
+  }
+
+  .table-base tbody tr:last-child td {
+    @apply border-b-0;
+  }
+
+  .table-base tbody tr {
+    @apply transition-colors hover:bg-surface-soft;
+  }
+
+  .skip-link {
+    @apply fixed left-3 top-3 z-[100] -translate-y-24 rounded-lg bg-ink px-4 py-3 text-sm font-semibold text-surface transition-transform focus:translate-y-0;
+  }
+
+  .mobile-data-card {
+    @apply border-b border-line p-4 last:border-b-0;
+  }
+
+  .dialog-panel {
+    @apply m-auto max-h-[min(90dvh,52rem)] w-[calc(100vw-2rem)] max-w-lg overflow-y-auto rounded-2xl bg-surface shadow-2xl shadow-ink/25;
+  }
+
+  .drawer-dialog {
+    @apply fixed inset-0 m-0 h-dvh max-h-none w-[min(88vw,20rem)] max-w-none overflow-y-auto rounded-none bg-sidebar shadow-2xl shadow-ink/35;
+  }
+
+  .summary-row {
+    @apply flex items-baseline justify-between gap-4 py-2 text-sm;
+  }
+
+  .summary-row dt {
+    @apply text-muted;
+  }
+
+  .summary-row dd {
+    @apply font-mono text-sm font-medium tabular-nums text-ink;
+  }
+}
+
+@keyframes dialog-in {
+  from {
+    opacity: 0;
+    transform: translateY(8px) scale(0.99);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes drawer-in {
+  from {
+    opacity: 0;
+    transform: translateX(-16px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes backdrop-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes loadbar {
+  0% {
+    transform: translateX(-100%);
+  }
+  50% {
+    transform: translateX(40%);
+  }
+  100% {
+    transform: translateX(120%);
+  }
+}
+
+.drawer-dialog[open] {
+  animation: drawer-in 180ms ease-out;
+}
+
+.loading-bar {
+  animation: loadbar 1.2s ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
